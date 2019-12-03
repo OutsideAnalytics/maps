@@ -100,7 +100,7 @@ class OfflineManager {
    */
   async resetDatabase() {
     await this._initialize();
-    await MapboxGLOfflineManager.resetDatabase();
+    await MapboxGLOfflineManager.resetDatabase(() => {});
   }
 
   /**

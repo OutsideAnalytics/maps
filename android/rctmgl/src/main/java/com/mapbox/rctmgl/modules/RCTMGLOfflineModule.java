@@ -122,10 +122,20 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void resetDatabase() {
+    public void resetDatabase(final Promise promise) {
         activateFileSource();
         final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
-        offlineManager.resetDatabase();
+        offlineManager.resetDatabase(new OfflineManager.FileSourceCallback() {
+            @Override
+            public void onSuccess() {
+                promise.resolve(null);
+            }
+
+            @Override
+            public void onError(String error) {
+                promise.reject("resetDatabase", error);
+            }
+        });
     }
 
     @ReactMethod
