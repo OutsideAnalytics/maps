@@ -128,6 +128,20 @@ RCT_EXPORT_METHOD(getPacks:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseR
     });
 }
 
+RCT_EXPORT_METHOD(resetDatabase:
+                  resolver:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+{
+    [[MGLOfflineStorage sharedOfflineStorage] resetDatabaseWithCompletionHandler:^(NSError *error) {
+        if (error != nil) {
+            reject(@"resetDatabase", error.description, error);
+            return;
+        }
+        resolve(nil);
+    }];
+    
+}
+
 RCT_EXPORT_METHOD(getPackStatus:(NSString *)name
                   resolver:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)

@@ -122,6 +122,13 @@ public class RCTMGLOfflineModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void resetDatabase() {
+        activateFileSource();
+        final OfflineManager offlineManager = OfflineManager.getInstance(mReactContext);
+        offlineManager.resetDatabase();
+    }
+
+    @ReactMethod
     public void getPackStatus(final String name, final Promise promise) {
         activateFileSource();
 
