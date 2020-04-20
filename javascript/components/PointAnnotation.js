@@ -1,12 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  requireNativeComponent,
-  StyleSheet,
-  findNodeHandle,
-  UIManager,
-  Platform,
-} from 'react-native';
+import {requireNativeComponent, StyleSheet} from 'react-native';
 
 import {toJSONString, isFunction, viewPropTypes} from '../utils';
 import {makePoint} from '../utils/geoUtils';
@@ -134,17 +128,6 @@ class PointAnnotation extends React.PureComponent {
       return;
     }
     return toJSONString(makePoint(this.props.coordinate));
-  }
-
-  /**
-   * On android point annotation is rendered offscreen with a canvas into an image.
-   * To rerender the image from the current state of the view call refresh.
-   * Call this for example from Image#onLoad.
-   */
-  refresh() {
-    if (Platform.OS === 'android') {
-      UIManager.dispatchViewManagerCommand(findNodeHandle(this), 'refresh', []);
-    }
   }
 
   render() {
